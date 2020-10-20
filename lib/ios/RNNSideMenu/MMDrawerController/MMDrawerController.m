@@ -49,6 +49,8 @@ CGFloat const MMDrawerOvershootLinearRangePercentage = 0.75f;
 /** The percent of the possible overshoot width to use as the actual overshoot percentage. */
 CGFloat const MMDrawerOvershootPercentage = 0.1f;
 
+CGFloat const MMDrawerCenterOverlayMaxAlpha = 0.5;
+
 typedef void (^MMDrawerGestureStartedBlock)(MMDrawerController * drawerController, UIGestureRecognizer * gesture);
 typedef BOOL (^MMDrawerGestureShouldRecognizeTouchBlock)(MMDrawerController * drawerController, UIGestureRecognizer * gesture, UITouch * touch);
 typedef void (^MMDrawerGestureCompletionBlock)(MMDrawerController * drawerController, UIGestureRecognizer * gesture);
@@ -95,6 +97,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 -(UIView *)overlayView {
     if (!_overlayView) {
         _overlayView = [[UIView alloc] initWithFrame:self.bounds];
+    	_overlayView.backgroundColor = [UIColor blackColor];
         _overlayView.userInteractionEnabled = NO;
         _overlayView.alpha = 0.0;
     }
@@ -137,7 +140,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 -(void)setFrame:(CGRect)frame withLayoutAlpha:(CGFloat)layoutAlpha {
     [super setFrame:frame];
     
-    self.overlayView.alpha = layoutAlpha;
+    self.overlayView.alpha = layoutAlpha * MMDrawerCenterOverlayMaxAlpha;
     
     if (![self.overlayView isDescendantOfView:self]) {
         [self addSubview:self.overlayView];
@@ -1188,7 +1191,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
             
             [self.centerContainerView addSubview:self.centerContainerView.overlayView];
             [self.centerContainerView bringSubviewToFront:self.centerContainerView.overlayView];
-            self.centerContainerView.overlayView.alpha = percentVisible;
+            self.centerContainerView.overlayView.alpha = percentVisible * MMDrawerCenterOverlayMaxAlpha;
             
             break;
         }
