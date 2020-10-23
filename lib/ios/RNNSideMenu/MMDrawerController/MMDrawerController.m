@@ -1203,6 +1203,9 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
                 if(self.gestureCompletion){
                     self.gestureCompletion(self, panGesture);
                 }
+                if(!panGesture.isEnabled){
+                    [panGesture setEnabled:YES];
+                }
             }];
             self.view.userInteractionEnabled = YES;
             break;
