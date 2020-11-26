@@ -2,6 +2,7 @@ package com.reactnativenavigation.views.sidemenu;
 
 import android.content.Context;
 import android.util.Log;
+import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 public class SideMenu extends DrawerLayout {
     public SideMenu(@NonNull Context context) {
         super(context);
+        this.setScrimColor(Color.parseColor("#CC000000"));
     }
 
     @Override
